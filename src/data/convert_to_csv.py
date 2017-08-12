@@ -7,7 +7,7 @@ import json
 DATA_DIR = "data"
 
 from tqdm import tqdm
-output_file = os.path.join(DATA_DIR, "my_csv.csv")
+output_file = os.path.join(DATA_DIR, "data.csv")
 if os.path.isfile(output_file):
     os.unlink(output_file)
 with open(output_file, 'a') as f:
