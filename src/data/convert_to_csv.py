@@ -10,7 +10,7 @@ import click
 @click.option('--dir', default="**", help='The data folder you want to merge')
 def merge(dir):
     data_dir = "data"
-    od = "" if dir == "**" else dir
+    od = "all" if dir == "**" else dir
     output_file = os.path.join(data_dir, "data_{0}.csv.bz2".format(od))
     if os.path.isfile(output_file):
         os.unlink(output_file)
