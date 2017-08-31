@@ -10,9 +10,10 @@ headers = {
 params = urllib.urlencode({
 })
 
+
 def convert_to_df(d):
     for entry in d["features"]:
-        #update the coordinates to be long / lat
+        # update the coordinates to be long / lat
         entry["attributes"].update(entry["geometry"])
     df = pd.DataFrame.from_records([v["attributes"] for v in d["features"]]).set_index("tachana_id")
     df["tr_idkun"] = pd.to_datetime(df["tr_idkun"],unit='ms')
@@ -25,11 +26,12 @@ try:
     data = response.read()
     data = json.loads(data)
     timestamp = int(time.time())
-    if not os.path.isdir("data/"):
-        os.makedirs("data/")
+    output_dir = os.path.join("data",datetime.datetime.now().strftime('%Y-%m'))
+    if not os.path.isdir(output_dir):
+        os.makedirs(output_dir)
     df = convert_to_df(data)
     print df.shape
-    df.to_pickle(os.path.join("data","data_{0}.pkl".format(timestamp)))
+    df.to_pickle(os.path.join(output_dir, "data_{0}.pkl".format(timestamp)))
     conn.close()
 except Exception as e:
     print e
